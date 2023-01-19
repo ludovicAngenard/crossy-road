@@ -3,6 +3,7 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using System.IO;
+using System.Linq;
 
 public class Menu : MonoBehaviour
 {
@@ -21,10 +22,16 @@ public class Menu : MonoBehaviour
     public Button btnReturnSettings;
     
     private bool viewActive;
+    private string scores;
 
     public GameObject menu;
     public GameObject option;
     public GameObject levelView;
+
+    public TextMeshProUGUI highScoreLvl1;
+    public TextMeshProUGUI highScoreLvl2;
+    public TextMeshProUGUI highScoreLvl3;
+
 
     private float _volume;
     public float volume 
@@ -41,6 +48,8 @@ public class Menu : MonoBehaviour
 
         volumeSlider.minValue = 0f;
         volumeSlider.maxValue = 1f;
+
+		// add listener
         btnPlay.onClick.AddListener(ToggleActiveViewLevel);
         btnBeginner.onClick.AddListener(() =>LoadLevel("1"));
         btnReturnMenuLevel.onClick.AddListener(ToggleActiveViewLevel);
@@ -49,6 +58,13 @@ public class Menu : MonoBehaviour
         btnSetting.onClick.AddListener(ToggleActiveViewOption);
         btnReturnSettings.onClick.AddListener(ToggleActiveViewOption);
         btnQuit.onClick.AddListener(Quit);
+
+		// get high score by level
+		string json = File.ReadAllText("scores.json");
+        scores = JsonUtility.FromJson<ScoreList>(json).scores;
+		highScoreLvl1.text = GetHighScore(1).ToString();
+		highScoreLvl2.text = GetHighScore(2).ToString();
+		highScoreLvl3.text = GetHighScore(3).ToString();
 
     }
 
@@ -101,13 +117,16 @@ public class Menu : MonoBehaviour
         return false;
     }
 
+ 	public int GetHighScore(int level)
+    {
+        // Utiliser Linq pour filtrer les scores par niveau
+        var levelScores = scores.Where(s => s.level == level);
 
+        // Trier les scores par score décroissant
+        var highScore = levelScores.OrderByDescending(s => s.score).FirstOrDefault();
 
-}
+        // Récupérer le score
+        return highScore != null ? highScore.score : 0;
+    }
 
-public class ScoreRecord {
-
-        public int score;
-        public int level;
-        public string person;
 }
