@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -10,7 +11,7 @@ public class Menu : MonoBehaviour
     public Button btnPlay;
     public Button btnSetting;
     public Button btnQuit;
-    
+
     public Button btnBeginner;
     public Button btnIntermediate;
     public Button btnExpert;
@@ -20,9 +21,9 @@ public class Menu : MonoBehaviour
     public TextMeshProUGUI volumeLabel;
     public Button btnResetScore;
     public Button btnReturnSettings;
-    
+
     private bool viewActive;
-    private string scores;
+    private Score[] scores;
 
     public GameObject menu;
     public GameObject option;
@@ -34,7 +35,7 @@ public class Menu : MonoBehaviour
 
 
     private float _volume;
-    public float volume 
+    public float volume
     {
         get => _volume;
         set
@@ -61,7 +62,7 @@ public class Menu : MonoBehaviour
 
 		// get high score by level
 		string json = File.ReadAllText("scores.json");
-        scores = JsonUtility.FromJson<Score[]>(json).scores;
+    scores = JsonUtility.FromJson<Score[]>(json);
 		highScoreLvl1.text = GetHighScore(1).ToString();
 		highScoreLvl2.text = GetHighScore(2).ToString();
 		highScoreLvl3.text = GetHighScore(3).ToString();
@@ -69,28 +70,28 @@ public class Menu : MonoBehaviour
     }
 
     void Update() { volume = volumeSlider.value; }
-    
+
     void Quit() { Application.Quit(); }
 
     void LoadLevel(string level)
-    { 
+    {
         SceneManager.LoadScene("level"+level);
     }
 
     void ToggleActiveViewLevel()
     {
         viewActive = levelView.activeInHierarchy;
-        levelView.SetActive(!viewActive); 
+        levelView.SetActive(!viewActive);
         menu.SetActive(viewActive);
-            
+
     }
     void ToggleActiveViewOption()
     {
         viewActive = option.activeInHierarchy;
-        option.SetActive(!viewActive); 
+        option.SetActive(!viewActive);
         menu.SetActive(viewActive);
     }
-    
+
     public void ResetScore()
     {
         string filePath = Application.persistentDataPath + "/score.json";

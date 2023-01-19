@@ -10,6 +10,9 @@ public class Player : MonoBehaviour
     private const int INIT_SCORE = 0;
     private const int INIT_LIFE = 2;
     private const int SPEED = 3;
+
+    private GameObject TerrainGenerator;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -23,6 +26,11 @@ public class Player : MonoBehaviour
         if (Input.GetKey(KeyCode.Z))
         {
             transform.Translate(Vector3.forward * SPEED * Time.deltaTime);
+        }
+
+        if (Input.GetKey(KeyCode.S) && global::TerrainGenerator.stopBack == false)
+        {
+          transform.Translate(Vector3.back * SPEED * Time.deltaTime);
         }
         if (Input.GetKey(KeyCode.Q))
         {
