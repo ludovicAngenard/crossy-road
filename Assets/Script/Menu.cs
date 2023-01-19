@@ -10,7 +10,7 @@ public class Menu : MonoBehaviour
     public Button btnPlay;
     public Button btnSetting;
     public Button btnQuit;
-    
+
     public Button btnBeginner;
     public Button btnIntermediate;
     public Button btnExpert;
@@ -20,7 +20,7 @@ public class Menu : MonoBehaviour
     public TextMeshProUGUI volumeLabel;
     public Button btnResetScore;
     public Button btnReturnSettings;
-    
+
     private bool viewActive;
     public GameObject menu;
     public GameObject option;
@@ -29,7 +29,7 @@ public class Menu : MonoBehaviour
     public TextMeshProUGUI[] highScoreLvl;
 
     private float _volume;
-    public float volume 
+    public float volume
     {
         get => _volume;
         set
@@ -52,7 +52,7 @@ public class Menu : MonoBehaviour
         btnIntermediate.onClick.AddListener(() => LoadLevel("2"));
         btnExpert.onClick.AddListener(() => LoadLevel("3"));
         btnReturnMenuLevel.onClick.AddListener(ToggleActiveViewLevel);
-        
+
         btnResetScore.onClick.AddListener(ResetScore);
         btnReturnSettings.onClick.AddListener(ToggleActiveViewOption);
 
@@ -64,28 +64,28 @@ public class Menu : MonoBehaviour
     }
 
     void Update() { volume = volumeSlider.value; }
-    
+
     void Quit() { Application.Quit(); }
 
     void LoadLevel(string level)
-    { 
+    {
         SceneManager.LoadScene("level"+level);
     }
 
     void ToggleActiveViewLevel()
     {
         viewActive = levelView.activeInHierarchy;
-        levelView.SetActive(!viewActive); 
+        levelView.SetActive(!viewActive);
         menu.SetActive(viewActive);
-            
+
     }
     void ToggleActiveViewOption()
     {
         viewActive = option.activeInHierarchy;
-        option.SetActive(!viewActive); 
+        option.SetActive(!viewActive);
         menu.SetActive(viewActive);
     }
-    
+
     public void ResetScore()
     {
         string filePath = Application.persistentDataPath + "/score.json";
