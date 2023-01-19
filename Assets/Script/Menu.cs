@@ -1,4 +1,3 @@
-using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -23,7 +22,7 @@ public class Menu : MonoBehaviour
     public Button btnReturnSettings;
 
     private bool viewActive;
-    private Score[] scores;
+    private ScoreRecord[] scores;
 
     public GameObject menu;
     public GameObject option;
@@ -52,20 +51,23 @@ public class Menu : MonoBehaviour
 
 		// add listener
         btnPlay.onClick.AddListener(ToggleActiveViewLevel);
+        btnSetting.onClick.AddListener(ToggleActiveViewOption);
+        btnQuit.onClick.AddListener(Quit);
+
         btnBeginner.onClick.AddListener(() =>LoadLevel("1"));
-        btnReturnMenuLevel.onClick.AddListener(ToggleActiveViewLevel);
         btnIntermediate.onClick.AddListener(() => LoadLevel("2"));
         btnExpert.onClick.AddListener(() => LoadLevel("3"));
-        btnSetting.onClick.AddListener(ToggleActiveViewOption);
+        btnReturnMenuLevel.onClick.AddListener(ToggleActiveViewLevel);
+
+        btnResetScore.onClick.AddListener(ResetScore);
         btnReturnSettings.onClick.AddListener(ToggleActiveViewOption);
-        btnQuit.onClick.AddListener(Quit);
 
 		// get high score by level
 		string json = File.ReadAllText("scores.json");
-    scores = JsonUtility.FromJson<Score[]>(json);
-		highScoreLvl1.text = GetHighScore(1).ToString();
-		highScoreLvl2.text = GetHighScore(2).ToString();
-		highScoreLvl3.text = GetHighScore(3).ToString();
+        scores = JsonUtility.FromJson<ScoreRecord[]>(json);
+		highScoreLvl1.text = GetHighScore(1);
+		highScoreLvl2.text = GetHighScore(2);
+		highScoreLvl3.text = GetHighScore(3);
 
     }
 
@@ -118,21 +120,18 @@ public class Menu : MonoBehaviour
         return false;
     }
 
- 	public int GetHighScore(int level)
+ 	public string GetHighScore(int level)
     {
-        // Utiliser Linq pour filtrer les scores par niveau
         var levelScores = scores.Where(s => s.level == level);
 
-        // Trier les scores par score décroissant
         var highScore = levelScores.OrderByDescending(s => s.score).FirstOrDefault();
 
-        // Récupérer le score
-        return highScore != null ? highScore.score : 0;
+        return highScore != null ? highScore.person +" "+ highScore.score : null;
     }
 
 }
 
-public class Score
+public class ScoreRecord
 {
     public int score;
     public int level;
