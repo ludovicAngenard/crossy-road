@@ -24,9 +24,13 @@ public class Player : MonoBehaviour
         {
             transform.Translate(Vector3.forward * SPEED * Time.deltaTime);
         }
-        if (Input.GetKey(KeyCode.S))
+        if (Input.GetKey(KeyCode.Q))
         {
-            transform.Translate(Vector3.back * SPEED * Time.deltaTime);
+            transform.Translate(Vector3.left * SPEED * Time.deltaTime);
+        }
+        if (Input.GetKey(KeyCode.D))
+        {
+            transform.Translate(Vector3.right * SPEED * Time.deltaTime);
         }
     }
 
@@ -68,7 +72,7 @@ public class Player : MonoBehaviour
         else if (other.gameObject.name == "endOfRun")
         {
             score += 2;
-            SceneManager.LoadScene("Level2");
+            SceneManager.LoadScene("Leve2");
         }
     }
     private bool CheckLife()
