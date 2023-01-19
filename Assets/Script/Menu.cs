@@ -22,16 +22,11 @@ public class Menu : MonoBehaviour
     public Button btnReturnSettings;
     
     private bool viewActive;
-    private ScoreRecord[] scores;
-
     public GameObject menu;
     public GameObject option;
     public GameObject levelView;
 
-    public TextMeshProUGUI highScoreLvl1;
-    public TextMeshProUGUI highScoreLvl2;
-    public TextMeshProUGUI highScoreLvl3;
-
+    public TextMeshProUGUI[] highScoreLvl;
 
     private float _volume;
     public float volume 
@@ -45,7 +40,6 @@ public class Menu : MonoBehaviour
         }
     }
     void Start() {
-
         volumeSlider.minValue = 0f;
         volumeSlider.maxValue = 1f;
 
@@ -63,11 +57,9 @@ public class Menu : MonoBehaviour
         btnReturnSettings.onClick.AddListener(ToggleActiveViewOption);
 
 		// get high score by level
-		string json = File.ReadAllText("scores.json");
-        scores = JsonUtility.FromJson<ScoreRecord[]>(json);
-		highScoreLvl1.text = GetHighScore(1);
-		highScoreLvl2.text = GetHighScore(2);
-		highScoreLvl3.text = GetHighScore(3);
+		highScoreLvl[0].text = HighScores.instance.GetHighScore(1);
+		highScoreLvl[1].text = HighScores.instance.GetHighScore(2);
+		highScoreLvl[2].text = HighScores.instance.GetHighScore(3);
 
     }
 
@@ -120,20 +112,4 @@ public class Menu : MonoBehaviour
         return false;
     }
 
- 	public string GetHighScore(int level)
-    {
-        var levelScores = scores.Where(s => s.level == level);
-
-        var highScore = levelScores.OrderByDescending(s => s.score).FirstOrDefault();
-
-        return highScore != null ? highScore.person +" "+ highScore.score : null;
-    }
-
-}
-
-public class ScoreRecord
-{
-    public int score;
-    public int level;
-    public string person;
 }
