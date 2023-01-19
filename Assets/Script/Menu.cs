@@ -22,7 +22,7 @@ public class Menu : MonoBehaviour
     public Button btnReturnSettings;
     
     private bool viewActive;
-    private string scores;
+    private Score[] scores;
 
     public GameObject menu;
     public GameObject option;
@@ -61,10 +61,10 @@ public class Menu : MonoBehaviour
 
 		// get high score by level
 		string json = File.ReadAllText("scores.json");
-        scores = JsonUtility.FromJson<Score[]>(json).scores;
-		highScoreLvl1.text = GetHighScore(1).ToString();
-		highScoreLvl2.text = GetHighScore(2).ToString();
-		highScoreLvl3.text = GetHighScore(3).ToString();
+        scores = JsonUtility.FromJson<Score[]>(json);
+		highScoreLvl1.text = GetHighScore(1);
+		highScoreLvl2.text = GetHighScore(2);
+		highScoreLvl3.text = GetHighScore(3);
 
     }
 
@@ -117,7 +117,7 @@ public class Menu : MonoBehaviour
         return false;
     }
 
- 	public int GetHighScore(int level)
+ 	public string GetHighScore(int level)
     {
         // Utiliser Linq pour filtrer les scores par niveau
         var levelScores = scores.Where(s => s.level == level);
@@ -126,7 +126,7 @@ public class Menu : MonoBehaviour
         var highScore = levelScores.OrderByDescending(s => s.score).FirstOrDefault();
 
         // Récupérer le score
-        return highScore != null ? highScore.score : 0;
+        return highScore != null ? highScore.person + highScore.score : null;
     }
 
 }
