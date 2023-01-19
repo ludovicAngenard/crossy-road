@@ -10,6 +10,7 @@ public class Player : MonoBehaviour
     private const int INIT_SCORE = 0;
     private const int INIT_LIFE = 2;
     private const int SPEED = 3;
+    public bool dead = false;
 
     private GameObject TerrainGenerator;
 
@@ -62,9 +63,10 @@ public class Player : MonoBehaviour
                 }
                 else
                 {
+                    dead = true;
+                    HighScores.instance.SaveScore("##TODO_PSEUDO", score);
                     ResetLevel();
                 }
-
                 break;
         }
     }
@@ -76,8 +78,7 @@ public class Player : MonoBehaviour
         {
             score += 1;
             spawnPosition = transform.position;
-        }
-        else if (other.gameObject.name == "endOfRun")
+        } else if (other.gameObject.name == "endOfRun")
         {
             score += 2;
             SceneManager.LoadScene("Leve2");
@@ -86,14 +87,8 @@ public class Player : MonoBehaviour
     private bool CheckLife()
     {
         bool boolean;
-        if (life > 1)
-        {
-            boolean = true;
-        }
-        else
-        {
-            boolean = false;
-        }
+        if (life > 1) boolean = true;
+        else boolean = false;
         return boolean;
     }
 
