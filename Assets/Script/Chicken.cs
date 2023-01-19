@@ -5,13 +5,13 @@ using UnityEngine;
 public class Chicken : MonoBehaviour
 {
     // Start is called before the first frame update
-    private Vector3 startPosition { get; set; };
-    private Vector3 endPosition{ get; set; };
+    private Vector3 startPosition { get; set; }
+    private Vector3 endPosition{ get; set; }
     private float speed;
 
     void Start()
     {
-        float = Random.Range(1.5f, 3f);
+        speed = Random.Range(1.5f, 3f);
         transform.position = startPosition;
     }
 
