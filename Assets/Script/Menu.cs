@@ -61,7 +61,7 @@ public class Menu : MonoBehaviour
 
 		// get high score by level
 		string json = File.ReadAllText("scores.json");
-        scores = JsonUtility.FromJson<ScoreList>(json).scores;
+        scores = JsonUtility.FromJson<Score[]>(json).scores;
 		highScoreLvl1.text = GetHighScore(1).ToString();
 		highScoreLvl2.text = GetHighScore(2).ToString();
 		highScoreLvl3.text = GetHighScore(3).ToString();
@@ -129,4 +129,11 @@ public class Menu : MonoBehaviour
         return highScore != null ? highScore.score : 0;
     }
 
+}
+
+public class Score
+{
+    public int score;
+    public int level;
+    public string person;
 }
