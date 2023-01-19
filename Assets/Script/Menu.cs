@@ -12,11 +12,12 @@ public class Menu : MonoBehaviour
     public Button btnBeginner;
     public Button btnIntermediate;
     public Button btnExpert;
+    public Button btnReturnMenuLevel;
 
     public Slider volumeSlider;
     public TextMeshProUGUI volumeLabel;
     public Button btnResetScore;
-    public Button btnReturn;
+    public Button btnReturnSettings;
     
     public bool viewActive;
 
@@ -40,11 +41,11 @@ public class Menu : MonoBehaviour
         volumeSlider.maxValue = 1f;
         btnPlay.onClick.AddListener(ToggleActiveViewLevel);
         btnBeginner.onClick.AddListener(LoadPreviousScene);
+        btnReturnMenuLevel.onClick.AddListener(ToggleActiveViewLevel);
         btnIntermediate.onClick.AddListener(LoadPreviousScene);
         btnExpert.onClick.AddListener(LoadPreviousScene);
         btnSetting.onClick.AddListener(ToggleActiveViewOption);
-        btnReturn.onClick.AddListener(ToggleActiveViewOption);
-        
+        btnReturnSettings.onClick.AddListener(ToggleActiveViewOption);
         btnQuit.onClick.AddListener(Quit);
 
     }
