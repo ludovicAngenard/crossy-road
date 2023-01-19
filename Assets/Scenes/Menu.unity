@@ -1384,7 +1384,6 @@ MonoBehaviour:
   volumeLabel: {fileID: 415070954}
   btnResetScore: {fileID: 1858259483}
   btnReturnSettings: {fileID: 1393775070}
-  viewActive: 0
   menu: {fileID: 1449852778}
   option: {fileID: 1742090096}
   levelView: {fileID: 587272292}
@@ -2958,7 +2957,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1393775071}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 11500000, guid: bc0ad61102cb1d940b37e3e1e99c6d6c, type: 3}
+        m_TargetAssemblyTypeName: 
+        m_MethodName: 
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: 
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 1
 --- !u!114 &1393775071
 MonoBehaviour:
   m_ObjectHideFlags: 0

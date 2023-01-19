@@ -2,6 +2,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
+using System.IO;
 
 public class Menu : MonoBehaviour
 {
@@ -19,7 +20,7 @@ public class Menu : MonoBehaviour
     public Button btnResetScore;
     public Button btnReturnSettings;
     
-    public bool viewActive;
+    private bool viewActive;
 
     public GameObject menu;
     public GameObject option;
@@ -73,6 +74,40 @@ public class Menu : MonoBehaviour
         option.SetActive(!viewActive); 
         menu.SetActive(viewActive);
     }
+    
+    public void ResetScore()
+    {
+        string filePath = Application.persistentDataPath + "/score.json";
+        if(IsFileLocked(filePath))
+        {
+            throw new IOException("File is locked, cannot clear it.");
+        }
+        File.WriteAllText(filePath, "{}");
+    }
+
+    private bool IsFileLocked(string filePath)
+    {
+        try
+        {
+            using (FileStream stream = File.Open(filePath, FileMode.Open, FileAccess.ReadWrite, FileShare.None))
+            {
+                stream.Close();
+            }
+        }
+        catch (IOException)
+        {
+            return true;
+        }
+        return false;
+    }
 
 
+
+}
+
+public class ScoreRecord {
+
+        public int score;
+        public int level;
+        public string person;
 }
