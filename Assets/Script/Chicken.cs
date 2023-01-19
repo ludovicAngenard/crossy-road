@@ -5,9 +5,8 @@ using UnityEngine;
 public class Chicken : MonoBehaviour
 {
     // Start is called before the first frame update
-    {
-    public Vector3 startPosition;
-    public Vector3 endPosition;
+    private Vector3 startPosition { get; set; };
+    private Vector3 endPosition{ get; set; };
     private float speed;
 
     void Start()
