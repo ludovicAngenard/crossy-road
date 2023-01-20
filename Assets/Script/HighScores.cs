@@ -53,7 +53,7 @@ public class HighScores : MonoBehaviour
 
     public string GetHighScore(int level)
     {
-        string lvl = "level" + level;
+        string lvl = "level" + level.ToString();
         Scores scores = LoadFromJson();
 
         return scores.levels.ContainsKey(lvl) != null ? scores.levels[lvl].pseudo + " " + scores.levels[lvl].score : null; 

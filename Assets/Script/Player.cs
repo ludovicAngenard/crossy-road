@@ -6,7 +6,7 @@ public class Player : MonoBehaviour
     private Transform transform;
     private int score { get; set; }
     private int life { get; set; }
-    private Vector3 spawnPosition = Vector3.zero;
+    private Vector3 spawnPosition = new Vector3(0,0,5);
     private const int INIT_SCORE = 0;
     private const int INIT_LIFE = 2;
     private const int SPEED = 3;
