@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.18028378, g: 0.22571412, b: 0.30692285, a: 1}
+  m_IndirectSpecularColor: {r: 0.18028328, g: 0.22571322, b: 0.30692163, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -1385,7 +1385,10 @@ MonoBehaviour:
   menu: {fileID: 1449852778}
   option: {fileID: 1742090096}
   levelView: {fileID: 587272292}
-  highScoreLvl: []
+  highScoreLvl:
+  - {fileID: 601289708}
+  - {fileID: 550459512}
+  - {fileID: 1984980559}
 --- !u!1 &739645069
 GameObject:
   m_ObjectHideFlags: 0

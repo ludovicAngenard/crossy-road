@@ -47,6 +47,7 @@ public class HighScores : MonoBehaviour
     private Scores LoadFromJson()
     {
         string filePath = Application.persistentDataPath + "/ScoresData.json";
+        Debug.Log(filePath);
         string scoresData = System.IO.File.ReadAllText(filePath);
         return JsonConvert.DeserializeObject<Scores>(scoresData);
     }
