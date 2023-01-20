@@ -25,13 +25,13 @@ public class Road : MonoBehaviour
         switch (level)
         {
             case 1:
-                speedLimit = Random.Range(3f, 5f);
+                speedLimit = Random.Range(2f, 4f);
                 break;
             case 2:
-                speedLimit = Random.Range(5f, 7f);
+                speedLimit = Random.Range(6f, 8f);
                 break;
             case 3:
-                speedLimit = Random.Range(7f, 9f);
+                speedLimit = Random.Range(10f, 12f);
                 break;
         }
         chicken.GetComponent<Chicken>().speed = speedLimit;

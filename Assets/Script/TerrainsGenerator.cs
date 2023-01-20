@@ -9,8 +9,6 @@ public class TerrainsGenerator : MonoBehaviour
   private int maxTerrainCount = 10;
   [SerializeField] private List<GameObject> terrains = new List<GameObject>();
 
-  [SerializeField] private GameObject grassTerrain;
-  [SerializeField] private GameObject roadTerrain;
 
   private List<GameObject> currentTerrains = new List<GameObject>();
   private Vector3 currentPosition = new Vector3(0, 0, 0);
@@ -18,7 +16,7 @@ public class TerrainsGenerator : MonoBehaviour
   private GameObject Player;
   public static bool stopBack = false;
   public static bool isGenerated = false;
-    private Manager manager;
+  private Manager manager;
 
   private void Start()
   {

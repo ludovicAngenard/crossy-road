@@ -7,15 +7,6 @@ using Random = UnityEngine.Random;
 
 public class Manager : MonoBehaviour
 {
-    //TODO
-    // manage level 
-    //manage player
-    // manage score
-    // manage spawns
-    // manage bonus
-    // manage endOfRun
-    // manage limit of the map
-    //manage camera
     public static int level = 1;
     private GameObject camera;
     private GameObject player;
@@ -23,7 +14,6 @@ public class Manager : MonoBehaviour
     private float spawnTimeOffset;
     public TextMeshProUGUI pvText;
     public TextMeshProUGUI scoreText;
-    // Start is called before the first frame update
     void Start()
     {
         pvText = GameObject.Find("pv").GetComponent<TextMeshProUGUI>();
@@ -36,7 +26,6 @@ public class Manager : MonoBehaviour
         pvText.text = "2";
     }
 
-    // Update is called once per frame
     void Update()
     {
     }

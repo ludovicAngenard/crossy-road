@@ -47,6 +47,8 @@ public class Menu : MonoBehaviour
     {
         volumeSlider.minValue = 0f;
         volumeSlider.maxValue = 1f;
+        volume = AudioListener.volume;
+        volumeSlider.value = volume;
 
         // add listener
         btnPlay.onClick.AddListener(ToggleActiveViewLevel);
