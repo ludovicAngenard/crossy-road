@@ -99,7 +99,7 @@ public class Menu : MonoBehaviour
 
     public void ResetScore()
     {
-        string filePath = Application.persistentDataPath + "/score.json";
+        string filePath = Application.persistentDataPath + "/ScoresData.json";
         if (IsFileLocked(filePath))
         {
             throw new IOException("File is locked, cannot clear it.");
