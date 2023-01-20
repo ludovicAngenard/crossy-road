@@ -9,6 +9,7 @@ TagManager:
   - Chicken
   - end
   - safeZone
+  - scoreObject
   layers:
   - Default
   - TransparentFX

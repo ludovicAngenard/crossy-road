@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -22,13 +23,19 @@ public class Menu : MonoBehaviour
     public Button btnReturnSettings;
 
     private bool viewActive;
+    private List<ScoreRecord> scores;
+
     public GameObject menu;
     public GameObject option;
     public GameObject levelView;
 
-    public TextMeshProUGUI[] highScoreLvl;
+    //public TextMeshProUGUI highScoreLvl1;
+    //public TextMeshProUGUI highScoreLvl2;
+    //public TextMeshProUGUI highScoreLvl3;
+
 
     private float _volume;
+
     public float volume
     {
         get => _volume;
@@ -39,16 +46,18 @@ public class Menu : MonoBehaviour
             volumeLabel.text = value.ToString();
         }
     }
-    void Start() {
+
+    void Start()
+    {
         volumeSlider.minValue = 0f;
         volumeSlider.maxValue = 1f;
 
-		// add listener
+        // add listener
         btnPlay.onClick.AddListener(ToggleActiveViewLevel);
         btnSetting.onClick.AddListener(ToggleActiveViewOption);
         btnQuit.onClick.AddListener(Quit);
 
-        btnBeginner.onClick.AddListener(() =>LoadLevel("1"));
+        btnBeginner.onClick.AddListener(() => LoadLevel("1"));
         btnIntermediate.onClick.AddListener(() => LoadLevel("2"));
         btnExpert.onClick.AddListener(() => LoadLevel("3"));
         btnReturnMenuLevel.onClick.AddListener(ToggleActiveViewLevel);
@@ -56,16 +65,23 @@ public class Menu : MonoBehaviour
         btnResetScore.onClick.AddListener(ResetScore);
         btnReturnSettings.onClick.AddListener(ToggleActiveViewOption);
 
-		// get high score by level
-		highScoreLvl[0].text = HighScores.instance.GetHighScore(1);
-		highScoreLvl[1].text = HighScores.instance.GetHighScore(2);
-		highScoreLvl[2].text = HighScores.instance.GetHighScore(3);
-
+        // get high score by level
+        //string json = File.ReadAllText("Assets/score.json");
+        //scores = JsonUtility.FromJson<List<ScoreRecord>>(json);
+        //highScoreLvl1.text = GetHighScore(1);
+        //highScoreLvl2.text = GetHighScore(2);
+        //highScoreLvl3.text = GetHighScore(3);
     }
 
-    void Update() { volume = volumeSlider.value; }
+    void Update()
+    {
+        volume = volumeSlider.value;
+    }
 
-    void Quit() { Application.Quit(); }
+    void Quit()
+    {
+        Application.Quit();
+    }
 
     void LoadLevel(string level)
     {
@@ -78,8 +94,8 @@ public class Menu : MonoBehaviour
         viewActive = levelView.activeInHierarchy;
         levelView.SetActive(!viewActive);
         menu.SetActive(viewActive);
-
     }
+
     void ToggleActiveViewOption()
     {
         viewActive = option.activeInHierarchy;
@@ -90,10 +106,11 @@ public class Menu : MonoBehaviour
     public void ResetScore()
     {
         string filePath = Application.persistentDataPath + "/score.json";
-        if(IsFileLocked(filePath))
+        if (IsFileLocked(filePath))
         {
             throw new IOException("File is locked, cannot clear it.");
         }
+
         File.WriteAllText(filePath, "{}");
     }
 
@@ -110,7 +127,27 @@ public class Menu : MonoBehaviour
         {
             return true;
         }
+
         return false;
     }
 
+    public string GetHighScore(int level)
+    {
+        /*
+        var levelScores = scores.Where(s => s.level == level);
+
+        var highScore = levelScores.OrderByDescending(s => s.score).FirstOrDefault();
+
+        return highScore != null ? highScore.person +" "+ highScore.score : null;
+        */
+        return null;
+    }
+}
+
+[System.Serializable]
+public class ScoreRecord
+{
+    public int score;
+    public int level;
+    public string person;
 }
