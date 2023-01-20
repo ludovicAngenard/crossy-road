@@ -56,7 +56,8 @@ public class Menu : MonoBehaviour
     void Quit() { Application.Quit(); }
 
     void LoadLevel(string level)
-    { 
+    {
+        Manager.level = int.Parse(level);
         SceneManager.LoadScene("level"+level);
     }
 
