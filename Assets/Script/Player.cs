@@ -46,7 +46,6 @@ public class Player : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        Debug.Log("TRIGGRR : " + other.gameObject.tag);
         switch (other.gameObject.tag)
         {
             case "safeZone":
