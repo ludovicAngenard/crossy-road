@@ -49,7 +49,7 @@ public class Player : MonoBehaviour
         switch (other.gameObject.tag)
         {
             case "safeZone":
-                if (!Input.GetKey(KeyCode.S)) 
+                if (!Input.GetKey(KeyCode.S))
                 {
                     score += 1;
                     manager.scoreText.text = score.ToString();
