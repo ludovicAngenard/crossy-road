@@ -5,7 +5,10 @@ TagManager:
   serializedVersion: 2
   tags:
   - road
+  - spawn
   - Chicken
+  - end
+  - safeZone
   layers:
   - Default
   - TransparentFX

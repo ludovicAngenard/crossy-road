@@ -6,17 +6,18 @@ public class Player : MonoBehaviour
     private Transform transform;
     private int score { get; set; }
     private int life { get; set; }
-    private Vector3 spawnPosition = new Vector3(0,0,5);
+    private Vector3 spawnPosition = new Vector3(0,0.75f,6f);
     private const int INIT_SCORE = 0;
     private const int INIT_LIFE = 2;
     private const int SPEED = 3;
     public bool dead = false;
-
+    private Manager manager;
     private GameObject TerrainGenerator;
 
     // Start is called before the first frame update
     void Start()
     {
+        manager = GameObject.Find("Manager").GetComponent<Manager>();
         transform = gameObject.GetComponent<Transform>();
         ResetLevel();
     }
@@ -29,7 +30,7 @@ public class Player : MonoBehaviour
             transform.Translate(Vector3.forward * SPEED * Time.deltaTime);
         }
 
-        if (Input.GetKey(KeyCode.S) && global::TerrainGenerator.stopBack == false)
+        if (Input.GetKey(KeyCode.S) && TerrainsGenerator.stopBack == false)
         {
           transform.Translate(Vector3.back * SPEED * Time.deltaTime);
         }
@@ -43,45 +44,42 @@ public class Player : MonoBehaviour
         }
     }
 
-    private void OnCollisionEnter(Collision collision)
+    private void OnTriggerEnter(Collider other)
     {
-        collision.gameObject.tag = "scoreObject";
-        collision.gameObject.tag = "lifeObject";
-        switch (collision.gameObject.tag)
+        Debug.Log("TRIGGRR : " + other.gameObject.tag);
+        switch (other.gameObject.tag)
         {
+            case "safeZone":
+                if (!Input.GetKey(KeyCode.S)) 
+                {
+                    score += 1;
+                    manager.scoreText.text = score.ToString();
+                    spawnPosition = new Vector3(transform.position.x, transform.position.y, other.gameObject.transform.position.z);
+                }
+                break;
             case "scoreObject":
                 score += 1;
+                manager.scoreText.text = score.ToString();
                 break;
             case "lifeObject":
                 life += 1;
+                manager.pvText.text = life.ToString();
                 break;
-            case "car":
+            case "Chicken":
                 if (CheckLife())
                 {
                     life -= 1;
-                    transform.Translate(spawnPosition);
+                    score -= 1;
+                    manager.pvText.text = life.ToString();
+                    transform.position = spawnPosition;
                 }
                 else
                 {
+                    SceneManager.LoadScene("Menu");
                     dead = true;
-                    HighScores.instance.SaveScore("##TODO_PSEUDO", score);
-                    ResetLevel();
+                    //HighScores.instance.SaveScore("##TODO_PSEUDO", score);
                 }
                 break;
-        }
-    }
-
-    private void OnTriggerEnter(Collider other)
-    {
-
-        if (other.gameObject.tag == "safeZone")
-        {
-            score += 1;
-            spawnPosition = transform.position;
-        } else if (other.gameObject.name == "endOfRun")
-        {
-            score += 2;
-            SceneManager.LoadScene("Leve2");
         }
     }
     private bool CheckLife()
@@ -100,6 +98,6 @@ public class Player : MonoBehaviour
     }
     private void BackToSpawn()
     {
-        transform.Translate(spawnPosition);
+        transform.position = spawnPosition;
     }
 }

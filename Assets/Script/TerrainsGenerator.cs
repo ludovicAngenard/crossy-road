@@ -4,9 +4,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
-public class TerrainGenerator : MonoBehaviour
+public class TerrainsGenerator : MonoBehaviour
 {
-  [SerializeField] private int maxTerrainCount;
+  private int maxTerrainCount = 10;
   [SerializeField] private List<GameObject> terrains = new List<GameObject>();
 
   [SerializeField] private GameObject grassTerrain;
@@ -17,16 +17,19 @@ public class TerrainGenerator : MonoBehaviour
 
   private GameObject Player;
   public static bool stopBack = false;
-
+  public static bool isGenerated = false;
+    private Manager manager;
 
   private void Start()
   {
+    manager = GameObject.Find("Manager").GetComponent<Manager>();
     Player = GameObject.Find("Player");
     for (int i = 0; i < maxTerrainCount; i++)
     {
       SpawnTerrain();
     }
-  }
+    manager.RunGame();
+    }
 
   private void Update()
   {

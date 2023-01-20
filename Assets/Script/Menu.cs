@@ -70,7 +70,7 @@ public class Menu : MonoBehaviour
     void LoadLevel(string level)
     {
         Manager.level = int.Parse(level);
-        SceneManager.LoadScene("level"+level);
+        SceneManager.LoadScene("level1");
     }
 
     void ToggleActiveViewLevel()

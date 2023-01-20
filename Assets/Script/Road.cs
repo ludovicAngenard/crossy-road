@@ -1,5 +1,5 @@
-using System.Collections;
-using System.Collections.Generic;
+
+
 using UnityEngine;
 
 public class Road : MonoBehaviour
@@ -7,40 +7,63 @@ public class Road : MonoBehaviour
     private float speedLimit;
     private Vector3 spawnPosition;
     private Vector3 endPosition;
-    private GameObject chicken;
+    public  GameObject chicken;
     // Start is called before the first frame update
     void Start()
     {
-        chicken = Resources.Load<GameObject>("/Assets/Prefabs/chicken");
         FindSpeedLimit(Manager.level);
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+
     }
 
-    void FindSpeedLimit(int level)
+    public void FindSpeedLimit(int level)
     {
         switch (level)
         {
             case 1:
-                speedLimit = Random.Range(1.5f, 3f);
+                speedLimit = Random.Range(3f, 5f);
                 break;
             case 2:
-                speedLimit = Random.Range(3f, 4.5f);
+                speedLimit = Random.Range(5f, 7f);
                 break;
             case 3:
-                speedLimit = Random.Range(4.5f, 6f);
+                speedLimit = Random.Range(7f, 9f);
                 break;
         }
+        chicken.GetComponent<Chicken>().speed = speedLimit;
     }
 
     public void OpenTrafic()
     {
-        spawnPosition = transform.Find("Spawn").transform.position;
-        endPosition = transform.Find("End").transform.position;
-        chicken = GameObject.Instantiate(chicken, spawnPosition, Quaternion.identity);
+        endPosition = FindClosestObjectByTag("end").transform.position;
+        spawnPosition = FindClosestObjectByTag("spawn").transform.position;
+
+        chicken = Instantiate(chicken, spawnPosition, Quaternion.identity);
+        chicken.GetComponent<Chicken>().endPosition = endPosition;
+    }
+
+
+    public GameObject FindClosestObjectByTag(string tag)
+    {
+        GameObject[] gos;
+        gos = GameObject.FindGameObjectsWithTag(tag);
+        GameObject closest = null;
+        float distance = Mathf.Infinity;
+        Vector3 position = transform.position;
+        foreach (GameObject go in gos)
+        {
+            Vector3 diff = go.transform.position - position;
+            float curDistance = diff.sqrMagnitude;
+            if (curDistance < distance)
+            {
+                closest = go;
+                distance = curDistance;
+            }
+        }
+        return closest;
     }
 }
